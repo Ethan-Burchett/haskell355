@@ -34,43 +34,52 @@ merge_sorted (x:xs) (y:ys) | x <= y = x:merge_sorted xs(y:ys) --otherwise = y:me
 
 -- given a range and a list -> return a list of the given range
 
---drop_front (a,b) xs = r_drop (fst (a,b)) xs
---drop_back (a,b) xs = reverse (r_drop (snd (a,b)) (reverse xs))
 
+--drop_front (a,b) xs = r_drop (fst (a,b)) xs
+--drop_back (a,b) xs = reverse (r_drop (length xs) (-) (snd (a,b))) (reverse xs))
+--range_helper (a,b) xs = r_drop (fst (a,b)) (reverse (r_drop (snd (a,b)) (reverse xs)))
 
 r_drop 0 xs = xs
 r_drop x xs = r_drop (x-1) (tail xs)
 
-range_helper (a,b) xs = r_drop (fst (a,b)) (reverse (r_drop (snd (a,b)) (reverse xs)))
+range_helper (a,b) xs = r_drop (fst (a,b)) (reverse (r_drop ((length xs) - snd (a,b) - 1) (reverse xs)))
 
-sum_range :: (Ord a, Num p, Num a) => (a, a) -> [p] -> p
 sum_range (a,b) xs = sum (range_helper (a,b) xs )
+
+
+
+
+-- need to calculate length - num to drop from end 
+--        length - b = index of end of range
 
 -- or 
 
---ultra compact version
+--ultra compact version (incorrect)
 --sum_range (a,b) xs = sum (drop (fst (a,b)) (reverse (drop (snd (a,b)) (reverse xs))))
 
 
 
 
 
-natSum n | n == 0 = 0
-         | n > 0 = n + natSum (n - 1)
-         | otherwise = error "natSum: Input value is negative!"
+-- natSum n | n == 0 = 0
+--          | n > 0 = n + natSum (n - 1)
+--          | otherwise = error "natSum: Input value is negative!"
 
-nthElement [] n = error "nthElement': The input list is too short."
-nthElement (x:xs) 1 = x
-nthElement (x:xs) n = (nthElement xs (n-1))
+-- nthElement [] n = error "nthElement': The input list is too short."
+-- nthElement (x:xs) 1 = x
+-- nthElement (x:xs) n = (nthElement xs (n-1))
 
 -- init - return all the values in a array except for the last one. 
 -- tail - return all the values in an array except for the first one
 
 
 
-
-
 -- P3  (a) calc_collatz_seq ; 10%
+
+
+
+
+
 
 
 -- P3  (b) longest_collatz_seq ; 15%
