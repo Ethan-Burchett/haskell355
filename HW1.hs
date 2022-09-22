@@ -59,8 +59,6 @@ sum_range (a,b) xs = sum (range_helper (a,b) xs )
 
 
 
-
-
 -- natSum n | n == 0 = 0
 --          | n > 0 = n + natSum (n - 1)
 --          | otherwise = error "natSum: Input value is negative!"
@@ -76,7 +74,23 @@ sum_range (a,b) xs = sum (range_helper (a,b) xs )
 
 -- P3  (a) calc_collatz_seq ; 10%
 
+-- n → n/2 (n is even)
+-- n → 3n + 1 (n is odd)
 
+next_even :: Integral a => a -> a
+next_even n = div n 2
+next_odd n = 3 * n + 1
+
+next_collatz n | even n = next_even n
+               | odd n = next_odd n
+
+--calc_collatz_seq :: Integral a => a -> [a]
+calc_collatz_seq 1 = [1]
+--calc_collatz_seq n = next_collatz n :[]
+calc_collatz_seq n = n:calc_collatz_seq (next_collatz n)
+
+countdown (-1) = []
+countdown n = n:countdown (n - 1)
 
 
 
