@@ -84,13 +84,31 @@ next_odd n = 3 * n + 1
 next_collatz n | even n = next_even n
                | odd n = next_odd n
 
---calc_collatz_seq :: Integral a => a -> [a]
+calc_collatz_seq :: Integral a => a -> [a]
 calc_collatz_seq 1 = [1]
---calc_collatz_seq n = next_collatz n :[]
 calc_collatz_seq n = n:calc_collatz_seq (next_collatz n)
 
-countdown (-1) = []
+
+longest_list xs ys | length xs > length ys = xs
+                   | otherwise = ys
+
+
+--longest_collatz_seq :: Integral a => a -> [a]
+--longest_collatz_seq n =  longest_list (calc_collatz_seq n) longest_collatz_seq n
+
+-- just generate all of the lists from 1 and n first, then find the longest
+
+longest_collatz_seq 0 = 
+longest_collatz_seq n = 
+
+
+
+
+
+countdown (0) = []
 countdown n = n:countdown (n - 1)
+
+
 
 
 
