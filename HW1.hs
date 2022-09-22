@@ -33,19 +33,23 @@ merge_sorted (x:xs) (y:ys) | x <= y = x:merge_sorted xs(y:ys) --otherwise = y:me
 -- drop x ->reverse -> drop y -> reverse -> sum list
 
 -- given a range and a list -> return a list of the given range
-     
-drop_front (a,b) xs = drop (fst (a,b)) xs
-drop_back (a,b) xs = reverse (drop (snd (a,b)) (reverse xs))
 
---range_helper (a,b) xs = drop_front (a,b) (drop_back (a,b) xs)
+--drop_front (a,b) xs = r_drop (fst (a,b)) xs
+--drop_back (a,b) xs = reverse (r_drop (snd (a,b)) (reverse xs))
 
-range_helper (a,b) xs = drop (fst (a,b)) (reverse (drop (snd (a,b)) (reverse xs)))
 
---sum_range :: (Num p, Num a) => (a, a) -> [p] -> p
---sum_range (a,b) xs = sum (range_helper (a,b) xs )
+r_drop 0 xs = xs
+r_drop x xs = r_drop (x-1) (tail xs)
+
+range_helper (a,b) xs = r_drop (fst (a,b)) (reverse (r_drop (snd (a,b)) (reverse xs)))
+
+sum_range :: (Ord a, Num p, Num a) => (a, a) -> [p] -> p
+sum_range (a,b) xs = sum (range_helper (a,b) xs )
 
 -- or 
-sum_range (a,b) xs = sum (drop (fst (a,b)) (reverse (drop (snd (a,b)) (reverse xs))))
+
+--ultra compact version
+--sum_range (a,b) xs = sum (drop (fst (a,b)) (reverse (drop (snd (a,b)) (reverse xs))))
 
 
 
