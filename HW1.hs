@@ -47,16 +47,12 @@ range_helper (a,b) xs = r_drop (fst (a,b)) (reverse (r_drop ((length xs) - snd (
 sum_range (a,b) xs = sum (range_helper (a,b) xs )
 
 
-
-
 -- need to calculate length - num to drop from end 
 --        length - b = index of end of range
-
 -- or 
 
 --ultra compact version (incorrect)
 --sum_range (a,b) xs = sum (drop (fst (a,b)) (reverse (drop (snd (a,b)) (reverse xs))))
-
 
 
 -- natSum n | n == 0 = 0
@@ -69,7 +65,6 @@ sum_range (a,b) xs = sum (range_helper (a,b) xs )
 
 -- init - return all the values in a array except for the last one. 
 -- tail - return all the values in an array except for the first one
-
 
 
 -- P3  (a) calc_collatz_seq ; 10%
@@ -93,28 +88,39 @@ longest_list xs ys | length xs > length ys = xs
                    | otherwise = ys
 
 
---longest_collatz_seq :: Integral a => a -> [a]
---longest_collatz_seq n =  longest_list (calc_collatz_seq n) longest_collatz_seq n
-
 -- just generate all of the lists from 1 and n first, then find the longest
 
-longest_collatz_seq 0 = 
-longest_collatz_seq n = 
+--longest_collatz_seq 0 = 
+--longest_collatz_seq n = 
 
+--collatz_helper 0 = []
+--collatz_helper 0 = 
 
+--helper 0 = []
+--helper n [] = helper (n-1 ) calc_collatz_seq 
 
+--countdown (0) = []
+--countdown n = n:countdown (n - 1)
 
+--make_pair n = [n, length (calc_collatz_seq n)] -- number, length
 
-countdown (0) = []
-countdown n = n:countdown (n - 1)
+--make_tuple_array n = 
 
+--helper n = map make_tuple (coundown n)
 
+--get_tuple_list n = map make_pair [1..n]
 
-
-
-
+--longest_collatz_seq n =  longest_list (calc_collatz_seq n) longest_collatz_seq n
 
 -- P3  (b) longest_collatz_seq ; 15%
+
+longest_collatz_seq :: Integral a => a -> [a]
+longest_collatz_seq 1 = [1]
+longest_collatz_seq n = longest_list (longest_collatz_seq (n-1)) (calc_collatz_seq n)
+
+
+
+
 
 
 -- P4  (a) game_scores ; 15%
